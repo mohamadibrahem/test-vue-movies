@@ -41,8 +41,9 @@
 </template>
 
 <script>
+import { reactive, onMounted} from "vue";
 import useMovies from "../../MoviesApi/movies";
-import {onMounted} from "vue";
+
 export default {
     props: {
         id: {
@@ -76,7 +77,7 @@ export default {
         onMounted(getMovie(props.id))
         onMounted(getCategory)
         const saveMovie = async () => {
-            await updateMovie(props.id)
+            await updateMovie(props.id);
         }
         return {
             errors,

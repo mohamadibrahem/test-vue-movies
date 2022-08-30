@@ -9,7 +9,7 @@
 
     <form class="m-5" @submit.prevent="saveLogin">
         <div class="m-5 p-3 border border-success">
-            
+            <h3>Login</h3>
             <div class="mb-3">
                 <label for="name" class="form-label">E-mail</label>
                 <input type="email" class="form-control" name="email" id="email" v-model="form.email">
@@ -24,7 +24,7 @@
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-3">Login</button>
             </div>
-
+            <h3 v-if="form.loading">loading...</h3>
         </div>
     </form>
 </template>
@@ -38,12 +38,15 @@ export default {
         const form = reactive({
             'email': '',
             'password': '',
+            'loading': false,
         })
         const { errors, categories, Login } = useMovies()
         const store = useStore()
         const saveLogin = async () => {
+            form.loading = true;
             var data = await Login({...form});
             console.log(data)
+            form.loading = false;
         }
         return {
             form,

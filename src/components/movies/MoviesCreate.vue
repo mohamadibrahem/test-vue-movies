@@ -35,6 +35,8 @@
             <div class="col-auto">
                 <button type="submit" class="btn btn-primary mb-3">Add</button>
             </div>
+            <h3 v-if="form.loading">loading...</h3>
+
 
         </div>
     </form>
@@ -69,11 +71,14 @@ export default {
             'description': '',
             'category_id': '',
             'image': null,
+            'loading': false,
         })
         const { errors, categories, storeMovie, getCategory } = useMovies()
         onMounted(getCategory)
         const saveMovie = async () => {
+            form.loading = true;
             await storeMovie({...form});
+            form.loading = false;
         }
         return {
             form,

@@ -9,7 +9,7 @@
 
     <form class="m-5" @submit.prevent="saveRegister">
         <div class="m-5 p-3 border border-success">
-            
+            <h3>Register</h3>
             
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -28,8 +28,9 @@
           
 
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-3">Login</button>
+                <button type="submit" class="btn btn-primary mb-3">Register</button>
             </div>
+            <h3 v-if="form.loading">loading...</h3>
 
         </div>
     </form>
@@ -45,12 +46,15 @@ export default {
             'name': '',
             'email': '',
             'password': '',
+            'loading': false,
         })
         const { errors, categories, Register } = useMovies()
         const store = useStore()
         const saveRegister = async () => {
+            form.loading = true;
             var data = await Register({...form});
-            console.log(data)
+            form.loading = false;
+            
         }
         return {
             form,
